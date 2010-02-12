@@ -1,0 +1,45 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Attempts to use FAPI for HTML5 form stuff
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function html5fapi_menu() {
+  $items['html5fapi'] = array(
+    'title' => 'HTML5 FAPI testpage',
+    'description' => 'A page that tries to utilize FAPI to create HTML5 form elements.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('html5fapi_form'),
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Builds and returns a form with HTML5 input types.
+ */
+function html5fapi_form() {
+  $form['maxlength'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Maxlength'),
+    '#description' => t('Textfield with maxlength attribute set to 5.'),
+    '#default_value' => '',
+    '#maxlength' => '5',
+  );
+  
+  $form['placeholder'] = array(
+    '#type' => 'password',
+    '#title' => t('Placeholder'),
+    '#description' => t('Password field with placeholder "Password"'),
+    '#default_value' => '',
+    '#attributes' => array('placeholder' => t('Password')),
+  );
+  
+  return $form;
+}
