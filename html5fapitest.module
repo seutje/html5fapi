@@ -65,5 +65,22 @@ function html5fapitest_form() {
     '#pattern' => '[0-9]',
   );
   
+  $form['readonly'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Readonly'),
+    '#description' => t('Textfield with readonly attribute.'),
+    '#default_value' => 'some value',
+    '#readonly' => TRUE,
+  );
+  
+  $form['minmax'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Min/max'),
+    '#description' => t('Textfield with min and max attributes.'),
+    '#default_value' => '',
+    '#min' => '2',
+    '#max' => '5',
+  );
+  
   return $form;
 }

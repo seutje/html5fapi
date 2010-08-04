@@ -3,7 +3,7 @@
 
 /**
  * @file
- * Exposes a testpage for HTML5 FAPI
+ * Adds support for HTML5 form elements and attributes.
  */
 
 /**
@@ -36,8 +36,8 @@ function html5fapi_form_process($element) {
     'maxlength',
     'pattern',
     'placeholder',
-    //'min',
-    //'max',
+    'min',
+    'max',
     //'autocomplete',
     //'list',
     //'accept',
@@ -46,8 +46,8 @@ function html5fapi_form_process($element) {
   $specialones = array(
     'required',
     'autofocus',
+    'readonly',
     //'multiple',
-    //'readonly'
   );
   foreach ($attributes as $attribute) {
     if (isset($element['#' . $attribute])) {
