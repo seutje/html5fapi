@@ -1,0 +1,69 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Exposes a testpage for HTML5 FAPI
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function html5fapi_menu() {
+  $items['html5fapitest'] = array(
+    'title' => 'HTML5 FAPI testpage',
+    'description' => 'Testpage for HTML5 FAPI.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('html5fapitest_form'),
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Builds and returns a form with HTML5 input types.
+ */
+function html5fapitest_form() {
+  $form['maxlength'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Maxlength'),
+    '#description' => t('Textfield with maxlength attribute set to 5.'),
+    '#default_value' => '',
+    '#maxlength' => '5',
+  );
+  
+  $form['placeholder'] = array(
+    '#type' => 'password',
+    '#title' => t('Placeholder'),
+    '#description' => t('Password field with placeholder "Password".'),
+    '#default_value' => '',
+    '#placeholder' => t('Password'),
+  );
+  
+  $form['autofocus'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Autofocus'),
+    '#description' => t('Textfield with autofocus attribute.'),
+    '#default_value' => '',
+    '#autofocus' => TRUE,
+  );
+  
+  $form['required'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Required'),
+    '#description' => t('Required textfield.'),
+    '#default_value' => '',
+    '#required' => TRUE,
+  );
+  
+  $form['pattern'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pattern'),
+    '#description' => t('Textfield with pattern attribute.'),
+    '#default_value' => '',
+    '#pattern' => '[0-9]',
+  );
+  
+  return $form;
+}

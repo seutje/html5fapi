@@ -1,0 +1,7 @@
+; $Id$
+name = HTML5 FAPI test
+description = Exposes a testpage for HTML5 FAPI
+package = Other
+version = VERSION
+core = 7.x
+files[] = html5fapitest.module

@@ -1,8 +1,7 @@
-; $Id: book.info,v 1.13 2009/11/17 21:24:18 dries Exp $
-name = HTML5 FAPI test
-description = A simple test module to see how well supported HTML5 form stuff is
+; $Id$
+name = HTML5 FAPI
+description = Adds support for HTML5 form element types.
 package = Other
 version = VERSION
 core = 7.x
 files[] = html5fapi.module
-configure = admin/content/book/settings

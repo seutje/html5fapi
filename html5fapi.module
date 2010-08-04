@@ -3,43 +3,61 @@
 
 /**
  * @file
- * Attempts to use FAPI for HTML5 form stuff
+ * Exposes a testpage for HTML5 FAPI
  */
 
 /**
- * Implements hook_menu().
+ * Implements hook_element_info_alter().
  */
-function html5fapi_menu() {
-  $items['html5fapi'] = array(
-    'title' => 'HTML5 FAPI testpage',
-    'description' => 'A page that tries to utilize FAPI to create HTML5 form elements.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('html5fapi_form'),
-    'access arguments' => array('access content'),
-    'type' => MENU_NORMAL_ITEM,
+function html5fapi_element_info_alter(&$type) {
+  $types = array(
+    'textfield',
+    'textarea',
+    'radio',
+    'radios',
+    'checkbox',
+    'checkboxes',
+    'password',
+    'password_confirm',
+    'select'
   );
-  return $items;
+  foreach($types as $name) {
+    if (isset($type[$name])) {
+      $type[$name]['#process'][] = 'html5fapi_form_process';
+    }
+  }
 }
 
 /**
- * Builds and returns a form with HTML5 input types.
+ * Adds support for HTML5 attributes
  */
-function html5fapi_form() {
-  $form['maxlength'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Maxlength'),
-    '#description' => t('Textfield with maxlength attribute set to 5.'),
-    '#default_value' => '',
-    '#maxlength' => '5',
+function html5fapi_form_process($element) {
+  $attributes = array(
+    'maxlength',
+    'pattern',
+    'placeholder',
+    //'min',
+    //'max',
+    //'autocomplete',
+    //'list',
+    //'accept',
   );
-  
-  $form['placeholder'] = array(
-    '#type' => 'password',
-    '#title' => t('Placeholder'),
-    '#description' => t('Password field with placeholder "Password"'),
-    '#default_value' => '',
-    '#attributes' => array('placeholder' => t('Password')),
+  // Exceptions for attributes that don't really take a value
+  $specialones = array(
+    'required',
+    'autofocus',
+    //'multiple',
+    //'readonly'
   );
-  
-  return $form;
+  foreach ($attributes as $attribute) {
+    if (isset($element['#' . $attribute])) {
+      $element['#attributes'][$attribute] = $element['#' . $attribute];
+    }
+  }
+  foreach ($specialones as $attribute) {
+    if (isset($element['#' . $attribute]) && $element['#' . $attribute]) {
+      $element['#attributes'][$attribute] = $attribute;
+    }
+  }
+  return $element;
 }
